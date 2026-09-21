@@ -30,3 +30,12 @@ function showLibrary(library) {
         display.appendChild(card);
     });
 }
+
+document.getElementById("new-book-btn").addEventListener("click", () => {
+    document.getElementById("my-dialog").showModal();
+});
+
+document.querySelector("form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    document.getElementById("my-dialog").close();
+})
