@@ -19,3 +19,14 @@ function addBookToLibrary(title, author, pages, read) {
     library.push(newBook);
     return library;
 }
+
+const display = document.querySelector(".display");
+
+function showLibrary(library) {
+    library.forEach(book => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.textContent = book.info();
+        display.appendChild(card);
+    });
+}
