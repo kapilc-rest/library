@@ -17,13 +17,13 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(title, author, pages, read) {
     let newBook = new Book(title, author, pages, read);
     library.push(newBook);
-    return library;
 }
 
-const display = document.querySelector(".display");
+let display = document.querySelector(".display");
 
 function showLibrary(library) {
-    library.forEach(book => {
+    display.innerHTML = "";
+    library.forEach( book => {
         const card = document.createElement("div");
         card.classList.add("card");
         card.textContent = book.info();
@@ -37,5 +37,24 @@ document.getElementById("new-book-btn").addEventListener("click", () => {
 
 document.querySelector("form").addEventListener("submit", (event) => {
     event.preventDefault();
-    document.getElementById("my-dialog").close();
+
+    const form = event.target;
+
+    const formData = new FormData(event.target);
+    const title = formData.get("book-title");
+    const author = formData.get("book-author");
+    const pages = Number(formData.get("book-pages"));
+    const read = document.getElementById("book-read").checked;
+
+    addBookToLibrary(title, author, pages, read);
+
+    form.reset();
 })
+
+document.querySelector("#form-close").addEventListener("click", () => {
+        document.getElementById("my-dialog").close();
+        const form = document.querySelector("form");
+        form.reset();
+        showLibrary(library);
+    }
+)
