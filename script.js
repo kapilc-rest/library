@@ -1,6 +1,9 @@
 const library = [];
 
 function Book(title, author, pages, read) {
+    if(!new.target) {
+        throw new Error("Ughhhh, use new to define");
+    }
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
@@ -13,5 +16,6 @@ function Book(title, author, pages, read) {
 
 function addBookToLibrary(title, author, pages, read) {
     let newBook = new Book(title, author, pages, read);
-    return library.push(newBook);
+    library.push(newBook);
+    return library;
 }
