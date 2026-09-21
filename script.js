@@ -35,11 +35,23 @@ function showLibrary(library) {
             removeBookFromLibrary(book.id);
             showLibrary(library);
         });
-        //appends remove button to card
+
+        const toggleReadButton = document.createElement("button");
+        toggleReadButton.textContent = book.read ? "Mark unread" : "Mark read";
+        toggleReadButton.addEventListener("click", () => {
+            book.toggleRead();
+            showLibrary(library);
+        })
+
         card.appendChild(removeButton);
-        //appends card to display
+        card.appendChild(toggleReadButton);
+        
         display.appendChild(card);
     });
+}
+
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
 }
 
 document.getElementById("new-book-btn").addEventListener("click", () => {
