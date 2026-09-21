@@ -26,7 +26,18 @@ function showLibrary(library) {
     library.forEach( book => {
         const card = document.createElement("div");
         card.classList.add("card");
+        card.dataset.id = book.id; //Store the books id
         card.textContent = book.info();
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", () => {
+            removeBookFromLibrary(book.id);
+            showLibrary(library);
+        });
+        //appends remove button to card
+        card.appendChild(removeButton);
+        //appends card to display
         display.appendChild(card);
     });
 }
@@ -58,3 +69,10 @@ document.querySelector("#form-close").addEventListener("click", () => {
         showLibrary(library);
     }
 )
+
+function removeBookFromLibrary(id) {
+    const index = library.findIndex(book => book.id === id);
+    if(index !== -1) {
+        library.splice(index,1);
+    }
+}
